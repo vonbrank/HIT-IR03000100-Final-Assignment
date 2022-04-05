@@ -21,16 +21,14 @@ OpenGLContainer::OpenGLContainer(unsigned int screenWidth, unsigned int screenHe
             screenHeight,
             windowTitle.c_str(), nullptr, nullptr);
 
-    if (window == nullptr)
-    {
+    if (window == nullptr) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         exit(-1);
     }
     glfwMakeContextCurrent(window);
 
-    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-    {
+    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         std::cout << "Failed to initialize GLAD" << std::endl;
         glfwTerminate();
         exit(-1);
@@ -41,15 +39,35 @@ OpenGLContainer::OpenGLContainer(unsigned int screenWidth, unsigned int screenHe
     clearColor = Color(0.03f, 0.12f, 0.20f, 1.0f);
 }
 
+void OpenGLContainer::addObject(MonoBehaviour *object) {
+    this->objectList.push_back(object);
+}
+
+void OpenGLContainer::update() {
+    glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    this->processInput(window);
+
+    for (MonoBehaviour* monoBehaviour: objectList) {
+        monoBehaviour->processInput(window);
+    }
+
+    for (MonoBehaviour* monoBehaviour: objectList) {
+        monoBehaviour->update();
+    }
+
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}
+
+void OpenGLContainer::processInput(GLFWwindow *window) {
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE)) glfwSetWindowShouldClose(window, true);
+}
+
 void OpenGLContainer::run() {
-    while (!glfwWindowShouldClose(window))
-    {
-
-        glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+    while (!glfwWindowShouldClose(window)) {
+        this->update();
     }
 }
 
@@ -57,3 +75,4 @@ OpenGLContainer::~OpenGLContainer() {
     glfwDestroyWindow(this->window);
     glfwTerminate();
 }
+
