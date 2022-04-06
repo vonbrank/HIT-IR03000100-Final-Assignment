@@ -3,7 +3,10 @@
 //
 
 #include "TextureLoader.h"
+
+#define STB_IMAGE_IMPLEMENTATION1
 #include <stb_image.h>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>

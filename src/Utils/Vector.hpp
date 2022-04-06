@@ -18,4 +18,15 @@ struct Vector4 {
     Vector4(float x, float y, float z, float w) : x(x / w), y(y / w), z(z / w), w(1) {}
 };
 
+struct Vector2 {
+    float x;
+    float y;
+
+    Vector2() : x(0), y(0) {}
+
+    Vector2(float x, float y) : x(x), y(y) {}
+
+};
+
+
 #endif //SPHERE_SHADING_VECTOR_HPP

@@ -9,23 +9,19 @@
 #include "../Utils/Vector.hpp"
 #include "../OpenGLContainer.h"
 #include "../Utils/Shader.h"
+#include "SpriteRenderer.h"
 #include <array>
 
-class Triangle : public MonoBehaviour {
+class Triangle : public SpriteRenderer {
 private:
-    float *verticesBuffer;
-    unsigned long long lengthOfVertices;
-    unsigned long long lengthOfVertexAttribute;
     std::array<Vector4, 3> vertices;
     std::array<Color, 3> verticesColor;
-    Shader shader;
-    unsigned int VAO, VBO;
     Triangle operator=(const Triangle &triangle);
     Triangle(const Triangle &triangle);
 public:
     Triangle(const std::array<Vector4, 3> &vertices, const std::array<Color, 3> &verticesColor, Shader &shader);
-    void draw();
-    void update() override;
+    void draw() override;
+
     ~Triangle();
 };
 
