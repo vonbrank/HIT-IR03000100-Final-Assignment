@@ -11,7 +11,8 @@
 #include "Utils/Color.hpp"
 #include <vector>
 #include "Entity/MonoBehaviour.h"
-
+#include "Entity/SpriteRenderer.h"
+#include "Entity/Camera.h"
 
 
 
@@ -20,10 +21,15 @@ private:
     GLFWwindow *window;
     Color clearColor;
     std::vector<MonoBehaviour*> objectList;
+    Camera camera;
+    float currentTime;
+    float lastTime;
+    float deltaTime;
 
 public:
     OpenGLContainer(unsigned int screenWidth, unsigned int screenHeight, const std::string &windowTitle);
     void addObject(MonoBehaviour *object);
+    void addSpriteRenderer(SpriteRenderer *spriteRenderer);
     void update();
     void processInput(GLFWwindow* window);
     void run();

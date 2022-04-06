@@ -19,13 +19,17 @@ private:
     unsigned int *indices;
     Color color;
     unsigned int texture1, texture2;
+    unsigned int LengthOfelementArrayBuffer;
+    float angle;
 
 
 public:
     Cube(const Cube &cube) = delete;
     Cube operator=(const Cube &cube) = delete;
-    void draw() override;
+    void render() override;
     Cube(float edgeLength, const Shader& shader);
+//    void processInput(GLFWwindow* window) override;
+    void update() override;
     ~Cube();
 
 };

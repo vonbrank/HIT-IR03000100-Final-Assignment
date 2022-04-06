@@ -9,6 +9,8 @@
 
 class MonoBehaviour {
 public:
+    float* deltaTimePointer;
+
     virtual void start();
     virtual void awake();
     virtual void update();

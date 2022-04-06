@@ -40,7 +40,7 @@ int main() {
 
     auto *cube = new Cube(1, cubeShader);
 
-    openGlContainer.addObject(cube);
+    openGlContainer.addSpriteRenderer(cube);
     openGlContainer.run();
 
     return 0;

@@ -39,8 +39,8 @@ Triangle::Triangle(const std::array<Vector4, 3> &vertices, const std::array<Colo
 
 Triangle::Triangle(const Triangle &triangle): SpriteRenderer(triangle.shader) {}
 
-void Triangle::draw() {
-    SpriteRenderer::draw();
+void Triangle::render() {
+    SpriteRenderer::render();
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 

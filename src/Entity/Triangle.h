@@ -20,7 +20,7 @@ private:
     Triangle(const Triangle &triangle);
 public:
     Triangle(const std::array<Vector4, 3> &vertices, const std::array<Color, 3> &verticesColor, Shader &shader);
-    void draw() override;
+    void render() override;
 
     ~Triangle();
 };
