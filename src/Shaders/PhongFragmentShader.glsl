@@ -16,9 +16,11 @@ uniform sampler2D texture2;
 void main() {
     float ambientStrength = 0.1;
     vec3 ambient = ambientStrength * vec3(lightColor.xyz);
-//    vec3 objectColor = vec3(1.0f, 0.5f, 0.2f);
+    //    vec3 objectColor = vec3(1.0f, 0.5f, 0.2f);
     vec2 localTexCoord = texCoord;
-    vec3 objectColor = (mix(texture(texture1, localTexCoord), texture(texture2, localTexCoord), 0.5f)).xyz;
+    //        vec3 objectColor = (mix(texture(texture1, localTexCoord), texture(texture2, localTexCoord), 0.5f)).xyz;
+    vec3 objectColor = texture(texture1, localTexCoord).xyz;
+//        vec3 objectColor = vec3(0.5, 0.5, 0.5);
 
 
     vec3 norm = normalize(Normal);
@@ -34,7 +36,7 @@ void main() {
     vec3 specular = specularStrength * spec * lightColor.xyz;
 
     vec3 result = (ambient + diffuse + specular) * objectColor;
-//    vec3 result = (specular) * objectColor;
+    //    vec3 result = (specular) * objectColor;
 
     FragColor = vec4(result, 1.0);
 }

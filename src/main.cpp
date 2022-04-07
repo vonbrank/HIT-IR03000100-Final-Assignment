@@ -14,6 +14,7 @@
 #include "Entity/Triangle.h"
 #include "Entity/Cube.h"
 #include "Utils/Shader.h"
+#include "Entity/Sphere.h"
 
 int main()
 {
@@ -45,8 +46,10 @@ int main()
 //                      defaultShader);
 
     auto *cube = new Cube(0.5, phongShader);
+    auto *sphere = new Sphere(1, phongShader);
 
-    openGlContainer.addSpriteRenderer(cube);
+//    openGlContainer.addSpriteRenderer(cube);
+    openGlContainer.addSpriteRenderer(sphere);
     openGlContainer.run();
 
     return 0;
