@@ -13,7 +13,7 @@
 #include "Entity/MonoBehaviour.h"
 #include "Entity/SpriteRenderer.h"
 #include "Entity/Camera.h"
-
+#include "Entity/Light.h"
 
 
 class OpenGLContainer {
@@ -25,6 +25,7 @@ private:
     float currentTime;
     float lastTime;
     float deltaTime;
+    Light light;
 
 public:
     OpenGLContainer(unsigned int screenWidth, unsigned int screenHeight, const std::string &windowTitle);

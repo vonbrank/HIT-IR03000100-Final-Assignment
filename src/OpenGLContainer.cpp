@@ -9,7 +9,10 @@
 #include <iostream>
 
 OpenGLContainer::OpenGLContainer(unsigned int screenWidth, unsigned int screenHeight, const std::string &windowTitle)
-        : camera(45.0f, 800, 600, 0.1, 100, Vector3(0, 0, 3))
+        : camera(45.0f, 800, 600, 0.1, 100, Vector3(0, 0, 3)),
+//          light(Color(1.0f, 0.5f, 0.2f, 1.0f),
+          light(Color(1.0f, 1.0f, 1.0f, 1.0f),
+                Vector3(5, 0, 5))
 {
     glfwInit();
 
@@ -53,6 +56,7 @@ void OpenGLContainer::addObject(MonoBehaviour *object)
 {
     this->objectList.push_back(object);
     object->deltaTimePointer = &(this->deltaTime);
+
 }
 
 void OpenGLContainer::addSpriteRenderer(SpriteRenderer *spriteRenderer)
@@ -60,6 +64,7 @@ void OpenGLContainer::addSpriteRenderer(SpriteRenderer *spriteRenderer)
     this->objectList.push_back(spriteRenderer);
     spriteRenderer->setCameraPointer(&(this->camera));;
     spriteRenderer->deltaTimePointer = &(this->deltaTime);
+    spriteRenderer->setLightPointer(&(this->light));
 }
 
 void OpenGLContainer::update()

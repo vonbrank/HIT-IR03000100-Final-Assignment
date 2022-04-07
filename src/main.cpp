@@ -15,7 +15,8 @@
 #include "Entity/Cube.h"
 #include "Utils/Shader.h"
 
-int main() {
+int main()
+{
     OpenGLContainer openGlContainer(SCR_WIDTH, SCR_HEIGHT, WINDOW_TITLE);
 
     Shader defaultShader(
@@ -25,6 +26,11 @@ int main() {
     Shader cubeShader(
             "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\CubeVertexShader.glsl",
             "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\CubeFragmentShader.glsl"
+    );
+
+    Shader phongShader(
+            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\PhongVertexShader.glsl",
+            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\PhongFragmentShader.glsl"
     );
 //    auto *triangle = new Triangle(std::array<Vector4, 3>{
 //                              (Vector4) {-0.5f, -0.5f, 0.0f},
@@ -38,7 +44,7 @@ int main() {
 //                      },
 //                      defaultShader);
 
-    auto *cube = new Cube(1, cubeShader);
+    auto *cube = new Cube(0.5, phongShader);
 
     openGlContainer.addSpriteRenderer(cube);
     openGlContainer.run();

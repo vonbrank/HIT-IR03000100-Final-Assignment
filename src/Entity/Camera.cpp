@@ -20,3 +20,8 @@ glm::mat4 Camera::getProjection() const
 {
     return projection;
 }
+
+glm::vec3  Camera::getViewPos() const
+{
+    return cameraPos;
+}

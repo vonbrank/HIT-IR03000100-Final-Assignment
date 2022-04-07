@@ -34,72 +34,71 @@ Cube::Cube(float edgeLength, const Shader &shader) : edgeLength(edgeLength), Spr
     this->shader.setInt("texture1", 0);
     this->shader.setInt("texture2", 1);
 
-    int verticesSigned[][5] =
-            {
-                    {-1, 1,  1,  0, 1},
-                    {1,  1,  1,  1, 1},
-                    {1,  -1, 1,  1, 0},
-                    {-1, -1, 1,  0, 0},
-                    {-1, 1,  -1, 0, 1},
-                    {1,  1,  -1, 0, 0},
-                    {1,  -1, -1, 1, 0},
-                    {-1, -1, -1, 1, 1},
-            };
+    lengthOfVertexAttribute = 8;
+    lengthOfVertices = 36;
+    lengthOfVerticesBuffer = lengthOfVertexAttribute * lengthOfVertices;
 
-    for (int i = 0; i < 8; i++)
-    {
-        vertices[i].x = verticesSigned[i][0] * edgeLength / 2;
-        vertices[i].y = verticesSigned[i][1] * edgeLength / 2;
-        vertices[i].z = verticesSigned[i][2] * edgeLength / 2;
-        vertices[i].w = 1;
-        texCoords[i].x = verticesSigned[i][3];
-        texCoords[i].y = verticesSigned[i][4];
-    }
+    verticesBuffer = new float[lengthOfVerticesBuffer]{
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f,
+            0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f, -1.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f, -1.0f,
+            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, -1.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f,
 
-    lengthOfVertexAttribute = 5;
-    lengthOfVertices = lengthOfVertexAttribute * 8;
-    verticesBuffer = new float[lengthOfVertices];
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+            0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+            -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
 
-    for (int i = 0; i < 8; i++)
-    {
-        int startIndex = i * lengthOfVertexAttribute;
-        verticesBuffer[startIndex] = vertices[i].x;
-        verticesBuffer[startIndex + 1] = vertices[i].y;
-        verticesBuffer[startIndex + 2] = vertices[i].z;
-        verticesBuffer[startIndex + 3] = texCoords[i].x;
-        verticesBuffer[startIndex + 4] = texCoords[i].y;
-    }
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+            -0.5f, 0.5f, -0.5f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f,
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
-//    for (int i = 0; i < lengthOfVertices; i++) {
-//        std::cout << verticesBuffer[i] << " ";
-//    }
-//    std::cout << std::endl;
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-    LengthOfelementArrayBuffer = 36;
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, -1.0f, 0.0f,
+            0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f, -1.0f, 0.0f,
+            0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, -1.0f, 0.0f,
+            0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, -1.0f, 0.0f,
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, -1.0f, 0.0f,
 
-    indices = new unsigned int[LengthOfelementArrayBuffer]{
-            0, 1, 3,
-            1, 2, 3,
-            4, 0, 7,
-            0, 3, 7,
-            1, 5, 2,
-            5, 6, 2,
-            5, 4, 6,
-            4, 7, 6,
-            4, 5, 0,
-            5, 1, 0,
-            3, 2, 7,
-            2, 6, 7
+            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
     };
 
-    glBufferData(GL_ARRAY_BUFFER, lengthOfVertices * sizeof(float), verticesBuffer, GL_STATIC_DRAW);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, LengthOfelementArrayBuffer * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+    for (int i = 0; i < lengthOfVertices; i++)
+    {
+        int startIndex = i * lengthOfVertexAttribute;
+        for (int j = 0; j < 3; j++)
+            verticesBuffer[startIndex + j] *= 2 * edgeLength;
+    }
+
+    glBufferData(GL_ARRAY_BUFFER, lengthOfVerticesBuffer * sizeof(float), verticesBuffer, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, lengthOfVertexAttribute * sizeof(float), (void *) 0);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, lengthOfVertexAttribute * sizeof(float),
                           (void *) (3 * sizeof(float)));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, lengthOfVertexAttribute * sizeof(float),
+                          (void *) (5 * sizeof(float)));
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
 
     angle = 45.0f;
     model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.5f, 1.0f, 1.0f));
@@ -112,13 +111,14 @@ void Cube::render()
     glBindTexture(GL_TEXTURE_2D, texture1);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture2);
-    glDrawElements(GL_TRIANGLES, LengthOfelementArrayBuffer, GL_UNSIGNED_INT, 0);
+
+    glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 void Cube::update()
 {
     angle += (*deltaTimePointer) * 50;
-    model = glm::rotate(glm::mat4(1.0f),  glm::radians(angle), glm::vec3(0.5f, 1.0f, 1.0f));
+    model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.5f, 1.0f, 1.0f));
     SpriteRenderer::update();
 }
 

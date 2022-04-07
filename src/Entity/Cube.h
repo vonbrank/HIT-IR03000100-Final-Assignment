@@ -10,26 +10,32 @@
 #include "../Utils/Vector.hpp"
 #include "../Utils/Color.hpp"
 
-class Cube : public SpriteRenderer {
+class Cube : public SpriteRenderer
+{
 private:
-    std::array<Vector4, 8> vertices;
+    std::array<float, 5 * 36> vertices;
     std::array<Color, 8> verticesColor;
     std::array<Vector2, 8> texCoords;
     float edgeLength;
     unsigned int *indices;
     Color color;
     unsigned int texture1, texture2;
-    unsigned int LengthOfelementArrayBuffer;
+    unsigned int lengthOfelementArrayBuffer;
     float angle;
 
 
 public:
     Cube(const Cube &cube) = delete;
+
     Cube operator=(const Cube &cube) = delete;
+
     void render() override;
-    Cube(float edgeLength, const Shader& shader);
+
+    Cube(float edgeLength, const Shader &shader);
+
 //    void processInput(GLFWwindow* window) override;
     void update() override;
+
     ~Cube();
 
 };

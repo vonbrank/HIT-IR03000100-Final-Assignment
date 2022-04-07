@@ -24,6 +24,7 @@ public:
     Camera(float fov, float width, float height, float near, float far, Vector3 cameraPos);
     glm::mat4 getView() const;
     glm::mat4 getProjection() const;
+    glm::vec3  getViewPos() const;
 };
 
 
