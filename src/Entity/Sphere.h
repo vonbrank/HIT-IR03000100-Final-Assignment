@@ -19,12 +19,21 @@ private:
     std::vector<std::vector<Vector3>> normals;
     std::vector<std::vector<Vector2>> texCoords;
     unsigned int texture1, texture2;
+    float angle;
+    float verticalRotationSpeed;
+    float verticalRotationSpeedAttenuationCoefficient;
+
+    static void mouse_callback(GLFWwindow *window, int button, int action, int mods);
 public:
     Sphere(float radius, const Shader &shader);
 
     void render() override;
 
     void setVerticesBufferAttributes(float *arr, int index, Vector3 vertices, Vector2 texCoord, Vector3 normal);
+
+    void update() override;
+
+    void processInput(GLFWwindow *window) override;
 };
 
 

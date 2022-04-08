@@ -12,7 +12,7 @@
 #include "MonoBehaviour.h"
 #include "../Utils/Vector.hpp"
 
-class Camera : MonoBehaviour
+class Camera : public MonoBehaviour
 {
 private:
     glm::vec3 cameraPos;
@@ -20,11 +20,30 @@ private:
     glm::vec3 cameraUp;
     glm::mat4 view;
     glm::mat4 projection;
+    float fov;
+    float width;
+    float height;
+    float near;
+    float far;
+    float verticalRotationAngle;
+    float verticalRotationSpeed;
+    float verticalRotationAcceleration;
+    float verticalRotationMaxSpeed;
+    float verticalRotationSpeedAttenuationCoefficient;
 public:
     Camera(float fov, float width, float height, float near, float far, Vector3 cameraPos);
+
     glm::mat4 getView() const;
+
     glm::mat4 getProjection() const;
-    glm::vec3  getViewPos() const;
+
+    glm::vec3 getViewPos() const;
+
+    void setAspect(float width, float height);
+
+    void processInput(GLFWwindow *window) override;
+
+    void update() override;
 };
 
 

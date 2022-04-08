@@ -33,22 +33,11 @@ int main()
             "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\PhongVertexShader.glsl",
             "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\PhongFragmentShader.glsl"
     );
-//    auto *triangle = new Triangle(std::array<Vector4, 3>{
-//                              (Vector4) {-0.5f, -0.5f, 0.0f},
-//                              (Vector4) {0.5f, -0.5f, 0.0f},
-//                              (Vector4) {0.0f, 0.5f, 0.0f},
-//                      },
-//                      std::array<Color, 3>{
-//                              (Color) {1, 1, 1, 1},
-//                              (Color) {1, 1, 1, 1},
-//                              (Color) {1, 1, 1, 1},
-//                      },
-//                      defaultShader);
 
     auto *cube = new Cube(0.5, phongShader);
     auto *sphere = new Sphere(1, phongShader);
 
-//    openGlContainer.addSpriteRenderer(cube);
+    openGlContainer.addSpriteRenderer(cube);
     openGlContainer.addSpriteRenderer(sphere);
     openGlContainer.run();
 

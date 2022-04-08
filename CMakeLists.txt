@@ -22,5 +22,5 @@ add_executable(
         src/Entity/SpriteRenderer.cpp
         src/Entity/Cube.cpp
         src/Entity/Camera.cpp
-        src/Entity/Camera.h src/Entity/Light.cpp src/Entity/Light.h src/Entity/Sphere.cpp src/Entity/Sphere.h)
+        src/Entity/Camera.h src/Entity/Light.cpp src/Entity/Light.h src/Entity/Sphere.cpp src/Entity/Sphere.h src/DataModel/InputDataModel.hpp)
 target_link_libraries(Sphere_Shading libglfw3.a)

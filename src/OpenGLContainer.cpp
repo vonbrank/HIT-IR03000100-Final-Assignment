@@ -7,13 +7,19 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
+#include "Utils/Utils.h"
+
+OpenGLContainer *OpenGLContainer::thisPtr;
+InputDataModel OpenGLContainer::inputDataModel;
 
 OpenGLContainer::OpenGLContainer(unsigned int screenWidth, unsigned int screenHeight, const std::string &windowTitle)
         : camera(45.0f, screenWidth, screenHeight, 0.1, 100, Vector3(0, 0, 3)),
 //          light(Color(1.0f, 0.5f, 0.2f, 1.0f),
-          light(Color(1.0f, 1.0f, 1.0f, 1.0f),
-                Vector3(-5, 0, 5))
+          light(Color(1.0f, 1.0f, 1.0f, 1.0f), Vector3(-5, 0, 5)),
+          screenWidth(screenWidth), screenHeight(screenHeight)
 {
+    thisPtr = this;
+
     glfwInit();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -21,25 +27,37 @@ OpenGLContainer::OpenGLContainer(unsigned int screenWidth, unsigned int screenHe
 
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    this->window = glfwCreateWindow(
+    this->
+            window = glfwCreateWindow(
             screenWidth,
             screenHeight,
             windowTitle.c_str(), nullptr, nullptr);
 
     if (window == nullptr)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        std::cout << "Failed to create GLFW window" <<
+                  std::endl;
+
         glfwTerminate();
+
         exit(-1);
     }
     glfwMakeContextCurrent(window);
 
-    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        glfwTerminate();
-        exit(-1);
-    }
+    glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback
+    );
+    glfwSetMouseButtonCallback(window, mouse_callback
+    );
+
+    Utils::checkGladLoad();
+
+    addObject(&camera);
+//    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+//    {
+//        std::cout << "Failed to initialize GLAD" << std::endl;
+//        glfwTerminate();
+//        exit(-1);
+//    }
 
     glViewport(0, 0, screenWidth, screenHeight);
 
@@ -56,7 +74,7 @@ void OpenGLContainer::addObject(MonoBehaviour *object)
 {
     this->objectList.push_back(object);
     object->deltaTimePointer = &(this->deltaTime);
-
+    object->setInputDataModel(&(this->inputDataModel));
 }
 
 void OpenGLContainer::addSpriteRenderer(SpriteRenderer *spriteRenderer)
@@ -65,6 +83,7 @@ void OpenGLContainer::addSpriteRenderer(SpriteRenderer *spriteRenderer)
     spriteRenderer->setCameraPointer(&(this->camera));;
     spriteRenderer->deltaTimePointer = &(this->deltaTime);
     spriteRenderer->setLightPointer(&(this->light));
+    spriteRenderer->setInputDataModel(&(this->inputDataModel));
 }
 
 void OpenGLContainer::update()
@@ -96,6 +115,17 @@ void OpenGLContainer::update()
 void OpenGLContainer::processInput(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE)) glfwSetWindowShouldClose(window, true);
+    double x, y;
+    glfwGetCursorPos(window, &x, &y);
+//    std::cout << x << ", " << y << std::endl;
+    inputDataModel.mouseMoveSpeedX = (x - inputDataModel.mouseCursorPosX) / deltaTime;
+    inputDataModel.mouseMoveSpeedY = (y - inputDataModel.mouseCursorPosY) / deltaTime;
+    inputDataModel.mouseMoveSpeedPercentageX = inputDataModel.mouseMoveSpeedX / screenWidth;
+    inputDataModel.mouseMoveSpeedPercentageY = inputDataModel.mouseMoveSpeedY / screenHeight;
+
+    inputDataModel.mouseCursorPosX = x;
+    inputDataModel.mouseCursorPosY = y;
+
 }
 
 void OpenGLContainer::run()
@@ -112,3 +142,21 @@ OpenGLContainer::~OpenGLContainer()
     glfwTerminate();
 }
 
+
+void OpenGLContainer::frame_buffer_size_callback(GLFWwindow *window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+    thisPtr->camera.setAspect(width, height);
+}
+
+void OpenGLContainer::mouse_callback(GLFWwindow *window, int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_LEFT)
+    {
+        if (GLFW_PRESS == action)
+            inputDataModel.leftButtonDown = true;
+        else if (GLFW_RELEASE == action)
+            inputDataModel.leftButtonDown = false;
+    }
+//    std::cout << inputDataModel.leftButtonDown << std::endl;
+}

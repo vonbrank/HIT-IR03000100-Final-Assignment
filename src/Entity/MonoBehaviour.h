@@ -4,17 +4,27 @@
 
 #ifndef SPHERE_SHADING_MONOBEHAVIOUR_H
 #define SPHERE_SHADING_MONOBEHAVIOUR_H
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "../DataModel/InputDataModel.hpp"
+#include "../DataModel/InputDataModel.hpp"
 
-class MonoBehaviour {
+class MonoBehaviour
+{
 public:
-    float* deltaTimePointer;
+    float *deltaTimePointer;
+    InputDataModel *inputDataModel;
 
     virtual void start();
+
     virtual void awake();
+
     virtual void update();
-    virtual void processInput(GLFWwindow* window);
+
+    virtual void processInput(GLFWwindow *window);
+
+    virtual void setInputDataModel(InputDataModel *inputDataModel);
 };
 
 

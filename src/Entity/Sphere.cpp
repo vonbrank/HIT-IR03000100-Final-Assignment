@@ -7,6 +7,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "../Utils/TextureLoader.h"
+#include "../Utils/Utils.h"
 
 Sphere::Sphere(float radius, const Shader &shader)
         : radius(radius), SpriteRenderer(shader), numOfLongitudeSection(24),
@@ -123,6 +124,10 @@ Sphere::Sphere(float radius, const Shader &shader)
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
 
+    angle = 60.0f;
+    model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
+    verticalRotationSpeedAttenuationCoefficient = 360.0f;
+
 }
 
 void Sphere::render()
@@ -132,6 +137,7 @@ void Sphere::render()
     glBindTexture(GL_TEXTURE_2D, texture1);
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawArrays(GL_TRIANGLES, 0, lengthOfVertices);
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void Sphere::setVerticesBufferAttributes(float *arr, int index, Vector3 vertices, Vector2 texCoord, Vector3 normal)
@@ -144,4 +150,22 @@ void Sphere::setVerticesBufferAttributes(float *arr, int index, Vector3 vertices
     arr[index + 5] = normal.x;
     arr[index + 6] = normal.y;
     arr[index + 7] = normal.z;
+}
+
+void Sphere::update()
+{
+
+    Utils::linearAttenuation(verticalRotationSpeed, verticalRotationSpeedAttenuationCoefficient, *deltaTimePointer);
+    angle += verticalRotationSpeed * (*deltaTimePointer);
+    model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
+    SpriteRenderer::update();
+}
+
+
+void Sphere::processInput(GLFWwindow *window)
+{
+    if (inputDataModel->leftButtonDown)
+    {
+        verticalRotationSpeed = inputDataModel->mouseMoveSpeedPercentageX * 180;
+    }
 }

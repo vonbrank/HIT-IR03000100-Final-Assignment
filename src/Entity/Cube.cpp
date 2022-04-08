@@ -101,7 +101,9 @@ Cube::Cube(float edgeLength, const Shader &shader) : edgeLength(edgeLength), Spr
     glEnableVertexAttribArray(2);
 
     angle = 45.0f;
-    model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.5f, 1.0f, 1.0f));
+    auto rotation = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.5f, 1.0f, 1.0f));
+    auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(3, 0, -3));
+    model = translation * rotation;
 }
 
 void Cube::render()
@@ -118,7 +120,9 @@ void Cube::render()
 void Cube::update()
 {
     angle += (*deltaTimePointer) * 50;
-    model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.5f, 1.0f, 1.0f));
+    auto rotation = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.5f, 1.0f, 1.0f));
+    auto translation = glm::translate(glm::mat4(1.0f), glm::vec3(3, 0, -3));
+    model = translation * rotation;
     SpriteRenderer::update();
 }
 
