@@ -21,4 +21,5 @@ void TextureLoader::load(const char *texturePath, int colorType) {
     } else {
         std::cout << "Failed to load texture1" << std::endl;
     }
+    stbi_image_free(data);
 }

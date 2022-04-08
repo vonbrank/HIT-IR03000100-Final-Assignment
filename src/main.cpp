@@ -37,6 +37,8 @@ int main()
     auto *cube = new Cube(0.5, phongShader);
     auto *sphere = new Sphere(1, phongShader);
 
+    openGlContainer.anglePointer = &(sphere->angle);
+
     openGlContainer.addSpriteRenderer(cube);
     openGlContainer.addSpriteRenderer(sphere);
     openGlContainer.run();

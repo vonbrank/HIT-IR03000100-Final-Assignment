@@ -14,13 +14,14 @@ Cube::Cube(float edgeLength, const Shader &shader) : edgeLength(edgeLength), Spr
 
     glGenTextures(1, &texture1);
     glGenTextures(1, &texture2);
+    glGenTextures(1, &texture3);
 
     glBindTexture(GL_TEXTURE_2D, texture1);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    TextureLoader::load("..\\Images\\container.jpg");
+    TextureLoader::load(".\\Images\\awesomeface.png", GL_RGBA);
 
     stbi_set_flip_vertically_on_load(true);
     glBindTexture(GL_TEXTURE_2D, texture2);
@@ -28,7 +29,15 @@ Cube::Cube(float edgeLength, const Shader &shader) : edgeLength(edgeLength), Spr
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    TextureLoader::load("..\\Images\\awesomeface.png", GL_RGBA);
+    TextureLoader::load(".\\Images\\container.jpg");
+
+    stbi_set_flip_vertically_on_load(true);
+    glBindTexture(GL_TEXTURE_2D, texture2);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    TextureLoader::load(".\\Images\\lucky.png", GL_RGBA);
 
     this->shader.use();
     this->shader.setInt("texture1", 0);
@@ -113,6 +122,8 @@ void Cube::render()
     glBindTexture(GL_TEXTURE_2D, texture1);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture2);
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, texture3);
 
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }

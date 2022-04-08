@@ -38,6 +38,7 @@ private:
     static OpenGLContainer *thisPtr;
 
 public:
+    float* anglePointer;
     OpenGLContainer(unsigned int screenWidth, unsigned int screenHeight, const std::string &windowTitle);
 
     void addObject(MonoBehaviour *object);

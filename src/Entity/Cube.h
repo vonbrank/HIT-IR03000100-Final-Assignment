@@ -13,14 +13,13 @@
 class Cube : public SpriteRenderer
 {
 private:
-    std::array<float, 5 * 36> vertices;
+    std::array<float, 5 * 36> vertices{};
     std::array<Color, 8> verticesColor;
     std::array<Vector2, 8> texCoords;
     float edgeLength;
-    unsigned int *indices;
+    unsigned int *indices{};
     Color color;
-    unsigned int texture1, texture2;
-    unsigned int lengthOfelementArrayBuffer;
+    unsigned int texture1{}, texture2{}, texture3{};
     float angle;
 
 

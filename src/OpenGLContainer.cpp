@@ -102,12 +102,10 @@ void OpenGLContainer::update()
     {
         monoBehaviour->processInput(window);
     }
-
     for (MonoBehaviour *monoBehaviour: objectList)
     {
         monoBehaviour->update();
     }
-
     glfwSwapBuffers(window);
     glfwPollEvents();
 }

@@ -21,7 +21,7 @@ Sphere::Sphere(float radius, const Shader &shader)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TextureLoader::load(
-            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\Images\\2k_earth_daymap.jpg");
+            ".\\Images\\2k_earth_daymap.jpg");
 
 
     glGenTextures(1, &texture2);
@@ -31,7 +31,7 @@ Sphere::Sphere(float radius, const Shader &shader)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TextureLoader::load(
-            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\Images\\2k_earth_nightmap.jpg");
+            ".\\Images\\2k_earth_nightmap.jpg");
 
 
     glGenTextures(1, &texture3);
@@ -41,7 +41,7 @@ Sphere::Sphere(float radius, const Shader &shader)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TextureLoader::load(
-            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\Images\\2k_earth_clouds.jpg");
+            ".\\Images\\2k_earth_clouds.jpg");
 
 
     this->shader.use();
@@ -148,8 +148,8 @@ Sphere::Sphere(float radius, const Shader &shader)
 
     angle = 60.0f;
     model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
+    verticalRotationSpeed = 0.0f;
     verticalRotationSpeedAttenuationCoefficient = 360.0f;
-
     cloudOffsetSpeed = -0.005;
     cloudOffset = glm::vec2(0, 0);
 
@@ -186,13 +186,15 @@ void Sphere::setVerticesBufferAttributes(float *arr, int index, Vector3 vertices
 
 void Sphere::update()
 {
+//    std::cout << "Before Sphere update" << angle << std::endl;
 
     Utils::linearAttenuation(verticalRotationSpeed, verticalRotationSpeedAttenuationCoefficient, *deltaTimePointer);
+//    std::cout << "Before Sphere update: " << verticalRotationSpeed << std::endl;
     angle += verticalRotationSpeed * (*deltaTimePointer);
     model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
     cloudOffset = glm::vec2(cloudOffset.x + cloudOffsetSpeed * (*deltaTimePointer), 0);
 
-//    std::cout << cloudOffset.x << std::endl;
+//    std::cout << "After Sphere update" << angle << std::endl;
 //    std::cout << cloudOffsetSpeed * (*deltaTimePointer) << std::endl;
     SpriteRenderer::update();
 }

@@ -18,15 +18,15 @@ private:
     std::vector<std::vector<Vector3>> keyCoords;
     std::vector<std::vector<Vector3>> normals;
     std::vector<std::vector<Vector2>> texCoords;
-    unsigned int texture1, texture2, texture3;
-    float angle;
+    unsigned int texture1{}, texture2{}, texture3{};
     float verticalRotationSpeed;
     float verticalRotationSpeedAttenuationCoefficient;
-    glm::vec2 cloudOffset;
+    glm::vec2 cloudOffset{};
     float cloudOffsetSpeed;
 
     static void mouse_callback(GLFWwindow *window, int button, int action, int mods);
 public:
+    float angle;
     Sphere(float radius, const Shader &shader);
 
     void render() override;
@@ -36,6 +36,7 @@ public:
     void update() override;
 
     void processInput(GLFWwindow *window) override;
+
 };
 
 
