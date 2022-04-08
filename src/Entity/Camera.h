@@ -25,11 +25,18 @@ private:
     float height;
     float near;
     float far;
+    float horizontalRotationAngle;
+    float horizontalRotationSpeed;
+    float horizontalRotationAcceleration;
+    float horizontalRotationMaxSpeed;
+    float horizontalRotationSpeedAttenuationCoefficient;
     float verticalRotationAngle;
     float verticalRotationSpeed;
     float verticalRotationAcceleration;
     float verticalRotationMaxSpeed;
     float verticalRotationSpeedAttenuationCoefficient;
+    float verticalRotationSafeDistance;
+    float verticalRotationSafeBound;
 public:
     Camera(float fov, float width, float height, float near, float far, Vector3 cameraPos);
 

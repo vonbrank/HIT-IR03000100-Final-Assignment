@@ -15,7 +15,7 @@ InputDataModel OpenGLContainer::inputDataModel;
 OpenGLContainer::OpenGLContainer(unsigned int screenWidth, unsigned int screenHeight, const std::string &windowTitle)
         : camera(45.0f, screenWidth, screenHeight, 0.1, 100, Vector3(0, 0, 3)),
 //          light(Color(1.0f, 0.5f, 0.2f, 1.0f),
-          light(Color(1.0f, 1.0f, 1.0f, 1.0f), Vector3(-5, 0, 5)),
+          light(Color(1.0f, 1.0f, 1.0f, 1.0f), Vector3(-50, 0, 50)),
           screenWidth(screenWidth), screenHeight(screenHeight)
 {
     thisPtr = this;

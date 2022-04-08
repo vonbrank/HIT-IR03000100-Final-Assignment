@@ -22,10 +22,32 @@ Sphere::Sphere(float radius, const Shader &shader)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TextureLoader::load(
             "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\Images\\2k_earth_daymap.jpg");
-//    TextureLoader::load("..\\Images\\container.jpg");
+
+
+    glGenTextures(1, &texture2);
+    glBindTexture(GL_TEXTURE_2D, texture2);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    TextureLoader::load(
+            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\Images\\2k_earth_nightmap.jpg");
+
+
+    glGenTextures(1, &texture3);
+    glBindTexture(GL_TEXTURE_2D, texture3);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    TextureLoader::load(
+            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\Images\\2k_earth_clouds.jpg");
+
 
     this->shader.use();
     this->shader.setInt("texture1", 0);
+    this->shader.setInt("texture2", 1);
+    this->shader.setInt("texture3", 2);
 
 
     float lengthOfLongitudeSection = 1.0 / numOfLongitudeSection;
@@ -128,13 +150,23 @@ Sphere::Sphere(float radius, const Shader &shader)
     model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
     verticalRotationSpeedAttenuationCoefficient = 360.0f;
 
+    cloudOffsetSpeed = -0.005;
+    cloudOffset = glm::vec2(0, 0);
+
 }
 
 void Sphere::render()
 {
     SpriteRenderer::render();
+    int cloudOffsetLoc = glGetUniformLocation(shader.ID, "cloudOffset");
+//    std::cout << cloudOffsetLoc << std::endl;
+    if (cloudOffsetLoc != -1) glUniform2fv(cloudOffsetLoc, 1, glm::value_ptr(cloudOffset));
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture1);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, texture2);
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, texture3);
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawArrays(GL_TRIANGLES, 0, lengthOfVertices);
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -158,6 +190,10 @@ void Sphere::update()
     Utils::linearAttenuation(verticalRotationSpeed, verticalRotationSpeedAttenuationCoefficient, *deltaTimePointer);
     angle += verticalRotationSpeed * (*deltaTimePointer);
     model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
+    cloudOffset = glm::vec2(cloudOffset.x + cloudOffsetSpeed * (*deltaTimePointer), 0);
+
+//    std::cout << cloudOffset.x << std::endl;
+//    std::cout << cloudOffsetSpeed * (*deltaTimePointer) << std::endl;
     SpriteRenderer::update();
 }
 
