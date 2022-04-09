@@ -23,6 +23,8 @@ private:
     float verticalRotationSpeedAttenuationCoefficient;
     glm::vec2 cloudOffset{};
     float cloudOffsetSpeed;
+    bool lineMode = false;
+    bool keyLTrigger = false;
 
     static void mouse_callback(GLFWwindow *window, int button, int action, int mods);
 public:

@@ -36,8 +36,8 @@ Sphere::Sphere(float radius, const Shader &shader)
 
     glGenTextures(1, &texture3);
     glBindTexture(GL_TEXTURE_2D, texture3);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     TextureLoader::load(
@@ -92,8 +92,8 @@ Sphere::Sphere(float radius, const Shader &shader)
         setVerticesBufferAttributes(verticesBuffer, startIndex + 8, keyCoords[1][i + 1],
                                     texCoords[1][i + 1], keyCoords[1][i + 1]);
 
-        setVerticesBufferAttributes(verticesBuffer, startIndex + 16, keyCoords[0][0],
-                                    texCoords[0][0], keyCoords[0][0]);
+        setVerticesBufferAttributes(verticesBuffer, startIndex + 16, keyCoords[0][i],
+                                    (texCoords[0][i] + texCoords[0][i + 1]) / 2, keyCoords[0][i]);
 
         setVerticesBufferAttributes(verticesBuffer, startIndex + 24, keyCoords[numOfLongitudeSection - 1][i],
                                     texCoords[numOfLongitudeSection - 1][i], keyCoords[numOfLongitudeSection - 1][i]);
@@ -102,10 +102,11 @@ Sphere::Sphere(float radius, const Shader &shader)
                                     texCoords[numOfLongitudeSection - 1][i + 1],
                                     keyCoords[numOfLongitudeSection - 1][i + 1]);
 
-        setVerticesBufferAttributes(verticesBuffer, startIndex + 40, keyCoords[numOfLongitudeSection][0],
-                                    texCoords[numOfLongitudeSection][0],
-                                    keyCoords[numOfLongitudeSection][0]);
-
+        setVerticesBufferAttributes(verticesBuffer, startIndex + 40, keyCoords[numOfLongitudeSection][i],
+                                    (texCoords[numOfLongitudeSection][i] + texCoords[numOfLongitudeSection][i + 1]) / 2,
+                                    keyCoords[numOfLongitudeSection][i]);
+//        std::cout << "[" << texCoords[1][i].x << ", " << texCoords[1][i + 1].y << "]" << ", "
+//                  << "[" << texCoords[1][i + 1].x << "," << texCoords[1][i + 1].y << "]" << std::endl;
         startIndex += 48;
 
     }
@@ -167,9 +168,11 @@ void Sphere::render()
     glBindTexture(GL_TEXTURE_2D, texture2);
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, texture3);
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    if (lineMode)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    else
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDrawArrays(GL_TRIANGLES, 0, lengthOfVertices);
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void Sphere::setVerticesBufferAttributes(float *arr, int index, Vector3 vertices, Vector2 texCoord, Vector3 normal)
@@ -206,4 +209,14 @@ void Sphere::processInput(GLFWwindow *window)
     {
         verticalRotationSpeed = inputDataModel->mouseMoveSpeedPercentageX * 180;
     }
+    if (glfwGetKey(window, GLFW_KEY_L) && !keyLTrigger)
+    {
+        keyLTrigger = true;
+    }
+    else if(!glfwGetKey(window, GLFW_KEY_L) && keyLTrigger)
+    {
+        keyLTrigger = false;
+        lineMode ^= 1;
+    }
+
 }
