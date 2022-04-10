@@ -1,6 +1,10 @@
 # HIT-IR03000100-Final-Assignment
 
-![HIT-IR03000100](https://img.shields.io/badge/HIT-IR03000100-red)  ![OpenGL-3.3](https://img.shields.io/badge/OpenGL-3.3-yellow)  [![Mail](https://img.shields.io/badge/Email-vonbrank@outlook.com-blue?style=flat&logo=mail.ru)](mailto:vonbrank@outlook.com)
+<p align="center">
+<img src="https://img.shields.io/badge/HIT-IR03000100-red" alt="HIT-IR03000100">
+<img src="https://img.shields.io/badge/OpenGL-3.3-yellow" alt="OpenGL-3.3">
+<a href="mailto:vonbrank@outlook.com"><img src="https://img.shields.io/badge/Email-vonbrank@outlook.com-blue?style=flat&logo=mail.cn" alt="Mail"></a>
+</p>
 
 哈工大《计算机图形学 · 自然景物模拟与分形艺术》2022春 - 课程大作业：《球体纹理映射与 Phong Shading》
 
@@ -10,7 +14,7 @@
 
 ### 运行
 
-如果不想或没有条件构建，直接运行 `./bin/Sphere_Shading.exe` 即可.
+如果不想或没有条件构建，直接运行 `.\bin\Sphere_Shading.exe` 即可.
 
 ### 功能
 
@@ -78,6 +82,8 @@ HIT-IR03000100-Final-Assignment
 + GNU Make (Built for i686-pc-mingw32)
 + CMake Windows (version 3.21.0+)
 
+#### 开始构建
+
 准备好上述环境并确认添加必要项至环境变量 `Path` 后：
 
 + 进入项目顶层目录，创建 `build\` 文件夹（如果未创建的话），并进入：
@@ -106,7 +112,7 @@ HIT-IR03000100-Final-Assignment
   .\Sphere_Shading.exe
   ```
 
-+ 如果物体渲染为黑色，请尝试将 `./Images` 复制至与 `Sphere_Shading.exe` 同一文件夹内后重试.
++ 如果物体渲染为黑色，请尝试将 `.\Images` 复制至与 `Sphere_Shading.exe` 同一文件夹内后重试.
 
 ### Linux
 
