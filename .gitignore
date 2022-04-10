@@ -79,3 +79,4 @@ lib/
 Images/
 build/
 *.pdf
+bin/

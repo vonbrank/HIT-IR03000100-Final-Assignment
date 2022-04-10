@@ -21,17 +21,17 @@ int main()
     OpenGLContainer openGlContainer(SCR_WIDTH, SCR_HEIGHT, WINDOW_TITLE);
 
     Shader defaultShader(
-            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\DefaultVertexShader.glsl",
-            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\DefaultFragmentShader.glsl");
+            ".\\Shaders\\DefaultVertexShader.glsl",
+            ".\\Shaders\\DefaultFragmentShader.glsl");
 
     Shader cubeShader(
-            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\CubeVertexShader.glsl",
-            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\CubeFragmentShader.glsl"
+            ".\\Shaders\\CubeVertexShader.glsl",
+            ".\\Shaders\\CubeFragmentShader.glsl"
     );
 
     Shader phongShader(
-            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\PhongVertexShader.glsl",
-            "D:\\Users\\VonBrank\\Documents\\Source\\Repos\\Github\\Personal\\HIT-IR03000100-Final-Assignment\\src\\Shaders\\PhongFragmentShader.glsl"
+            ".\\Shaders\\PhongVertexShader.glsl",
+            ".\\Shaders\\PhongFragmentShader.glsl"
     );
 
     auto *cube = new Cube(0.5, phongShader);

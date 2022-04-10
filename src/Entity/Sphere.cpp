@@ -69,7 +69,7 @@ Sphere::Sphere(float radius, const Shader &shader)
             keyCoords[i][j].x = sin(glm::radians(theta)) * cos(glm::radians(phi));
             keyCoords[i][j].z = sin(glm::radians(theta)) * sin(glm::radians(phi));
             keyCoords[i][j].y = cos(glm::radians(theta));
-            texCoords[i][j].x = 1 - lengthOfLatitudeSection * j / 2;
+            texCoords[i][j].x   = 1 - lengthOfLatitudeSection * j / 2;
             texCoords[i][j].y = 1 - lengthOfLongitudeSection * i;
 //            std::cout << "[" << keyCoords[i][j].x << ", " << keyCoords[i][j].z << ", " << keyCoords[i][j].y << "] ";
 //            std::cout << "[" << texCoords[i][j].x << ", " << texCoords[i][j].y << "] ";

@@ -28,3 +28,6 @@ target_link_libraries(Sphere_Shading libglfw3.a)
 execute_process(COMMAND ${CMAKE_COMMAND} -E
         copy_directory ${CMAKE_SOURCE_DIR}/Images/ ${CMAKE_BINARY_DIR}/Images/
         )
+execute_process(COMMAND ${CMAKE_COMMAND} -E
+        copy_directory ${CMAKE_SOURCE_DIR}/src/Shaders/ ${CMAKE_BINARY_DIR}/Shaders/
+        )
