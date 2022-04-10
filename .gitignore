@@ -77,3 +77,5 @@ fabric.properties
 /cmake-build-debug/
 lib/
 Images/
+build/
+*.pdf

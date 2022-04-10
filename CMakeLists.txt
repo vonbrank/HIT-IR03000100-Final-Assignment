@@ -24,3 +24,7 @@ add_executable(
         src/Entity/Camera.cpp
         src/Entity/Camera.h src/Entity/Light.cpp src/Entity/Light.h src/Entity/Sphere.cpp src/Entity/Sphere.h src/DataModel/InputDataModel.hpp src/Utils/Vector.cpp)
 target_link_libraries(Sphere_Shading libglfw3.a)
+
+execute_process(COMMAND ${CMAKE_COMMAND} -E
+        copy_directory ${CMAKE_SOURCE_DIR}/Images/ ${CMAKE_BINARY_DIR}/Images/
+        )
